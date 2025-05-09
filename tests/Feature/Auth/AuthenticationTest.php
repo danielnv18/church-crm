@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -19,6 +20,19 @@ test('users can authenticate using the login screen', function () {
     $response = $this->post('/login', [
         'email' => $user->email,
         'password' => 'password',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(route('dashboard', absolute: false));
+});
+
+test('users can authenticate with remember me checked', function () {
+    $user = User::factory()->create();
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+        'remember' => true,
     ]);
 
     $this->assertAuthenticated();
