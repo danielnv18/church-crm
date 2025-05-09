@@ -98,6 +98,7 @@ test('password cannot be reset with invalid email', function () {
 
         $response->assertSessionHasErrors(['email']);
         expect(session('errors')->get('email')[0])->toBe(__('passwords.user'));
+
         return true;
     });
 });
@@ -118,6 +119,7 @@ test('password cannot be reset with invalid password confirmation', function () 
         ]);
 
         $response->assertSessionHasErrors(['password']);
+
         return true;
     });
 });

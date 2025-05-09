@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Http;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Notification;
 
 test('email verification notification can be sent if user is not verified', function () {
     Notification::fake();
