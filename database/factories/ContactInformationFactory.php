@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+namespace Database\Factories;
+
+use App\Models\ContactInformation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Person>
+ * @extends Factory<ContactInformation>
  */
-final class PersonFactory extends Factory
+final class ContactInformationFactory extends Factory
 {
     /**
      * Define the model's default state.

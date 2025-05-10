@@ -16,7 +16,8 @@ final class UpdatePersonRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // TODO: add authorization logic here
+        return true; // Allow all users to make this request for now
     }
 
     /**

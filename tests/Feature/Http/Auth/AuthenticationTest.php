@@ -3,10 +3,6 @@
 declare(strict_types=1);
 
 use App\Models\User;
-use Illuminate\Auth\Events\Lockout;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
