@@ -22,9 +22,14 @@ final class ContactInformationFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'dob' => fake()->date(),
+            'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
+            'alternate_phone' => fake()->phoneNumber(),
+            'address_line_1' => fake()->streetAddress(),
+            'address_line_2' => fake()->streetAddress(),
+            'city' => fake()->city(),
+            'postal_code' => fake()->postcode(),
+            'country' => fake()->country(),
         ];
     }
 }
