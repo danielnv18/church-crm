@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\ActionEnum;
 use App\Models\Person;
 use App\Models\User;
 
@@ -14,7 +15,7 @@ final class PersonPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can(ActionEnum::ViewAny->value.' person');
     }
 
     /**
@@ -22,7 +23,7 @@ final class PersonPolicy
      */
     public function view(User $user, Person $person): bool
     {
-        return false;
+        return $user->can(ActionEnum::View->value.' person');
     }
 
     /**
@@ -30,7 +31,7 @@ final class PersonPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can(ActionEnum::Create->value.' person');
     }
 
     /**
@@ -38,7 +39,7 @@ final class PersonPolicy
      */
     public function update(User $user, Person $person): bool
     {
-        return false;
+        return $user->can(ActionEnum::Update->value.' person');
     }
 
     /**
@@ -46,7 +47,7 @@ final class PersonPolicy
      */
     public function delete(User $user, Person $person): bool
     {
-        return false;
+        return $user->can(ActionEnum::Delete->value.' person');
     }
 
     /**
@@ -54,7 +55,7 @@ final class PersonPolicy
      */
     public function restore(User $user, Person $person): bool
     {
-        return false;
+        return $user->can(ActionEnum::Restore->value.' person');
     }
 
     /**
@@ -62,6 +63,6 @@ final class PersonPolicy
      */
     public function forceDelete(User $user, Person $person): bool
     {
-        return false;
+        return $user->can(ActionEnum::ForceDelete->value.' person');
     }
 }
