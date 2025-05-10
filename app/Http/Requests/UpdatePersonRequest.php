@@ -33,12 +33,12 @@ final class UpdatePersonRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', Rule::enum(Gender::class)],
             'civil_status' => ['nullable', Rule::enum(CivilStatus::class)],
-            'dob' => ['nullable', 'date'],
+            'dob' => ['nullable', Rule::date()->format('Y-m-d')],
 
             // Spiritual information
-            'membership_at' => ['nullable', 'date'],
-            'baptized_at' => ['nullable', 'date'],
-            'saved_at' => ['nullable', 'date'],
+            'membership_at' => ['nullable', Rule::date()->format('Y-m-d')],
+            'baptized_at' => ['nullable', Rule::date()->format('Y-m-d')],
+            'saved_at' => ['nullable', Rule::date()->format('Y-m-d')],
             'testimony' => ['nullable', 'string', 'max:1000'],
 
             // Contact information
