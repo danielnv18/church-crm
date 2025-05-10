@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\CivilStatus;
 use App\Enums\Gender;
 use App\Models\ContactInformation;
+use App\Models\Person;
 use App\Models\SpiritualInformation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,8 +29,17 @@ final class PersonFactory extends Factory
             'gender' => fake()->randomElement(array_column(Gender::cases(), 'value')),
             'civil_status' => fake()->randomElement(array_column(CivilStatus::cases(), 'value')),
             'dob' => fake()->date(),
-            'spiritual_information' => SpiritualInformation::factory()->create(),
-            'contact_information' => ContactInformation::factory()->create(),
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Person $person) {
+            SpiritualInformation::factory()->create(['person_id' => $person->id]);
+            ContactInformation::factory()->create(['person_id' => $person->id]);
+        });
     }
 }
