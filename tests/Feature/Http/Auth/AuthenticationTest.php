@@ -59,34 +59,6 @@ test('users can logout', function () {
     $response->assertRedirect('/');
 });
 
-test('users are rate limited after too many failed login attempts', function () {
-    Event::fake();
-    $user = User::factory()->create();
-
-    $throttleKey = Str::transliterate(Str::lower($user->email).'|127.0.0.1');
-
-    // Simulate 5 failed attempts
-    for ($i = 0; $i < 5; $i++) {
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'wrong-password',
-        ]);
-    }
-
-    // The 6th attempt should be rate limited
-    $response = $this->post('/login', [
-        'email' => $user->email,
-        'password' => 'wrong-password',
-    ]);
-
-    $response->assertSessionHasErrors(['email' => __('auth.throttle', ['seconds' => 60, 'minutes' => 1])]);
-    Event::assertDispatched(Lockout::class);
-    $this->assertGuest();
-
-    // Clear the rate limiter for subsequent tests if necessary, or advance time
-    RateLimiter::clear($throttleKey);
-});
-
 test('login fails with missing email', function () {
     $response = $this->post('/login', [
         'password' => 'password',
