@@ -13,6 +13,13 @@ final class SpiritualInformation extends Model
     use HasFactory;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -24,13 +31,6 @@ final class SpiritualInformation extends Model
         'testimony',
         'person_id',
     ];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the attributes that should be cast.
