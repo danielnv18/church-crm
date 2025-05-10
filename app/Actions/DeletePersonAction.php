@@ -14,7 +14,7 @@ final class DeletePersonAction
      */
     public function handle(Person $person): void
     {
-        DB::transaction(function () use ($person) {
+        DB::transaction(function () use ($person): void {
             $person->delete();
         });
     }

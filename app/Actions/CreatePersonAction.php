@@ -14,7 +14,7 @@ final class CreatePersonAction
      */
     public function handle(array $data): Person
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data): Person {
             // Create the person with the general information
             $generalData = [
                 'first_name' => $data['first_name'],
