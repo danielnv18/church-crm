@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreatePersonAction;
+use App\Actions\DeletePersonAction;
+use App\Actions\UpdatePersonAction;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Models\Person;
@@ -30,7 +33,7 @@ final class PersonController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         // Return a view for creating a new person
         return Inertia::render('people/create');
@@ -39,11 +42,9 @@ final class PersonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePersonRequest $request): RedirectResponse
+    public function store(StorePersonRequest $request, CreatePersonAction $action): RedirectResponse
     {
-        // Validate and create a new person
-        $validatedData = $request->validated();
-        Person::create($validatedData);
+        $person = $action->handle($request->validated());
 
         // Redirect to the index page with a success message
         return to_route(('people.index'))->with('success', 'Person created successfully.');
@@ -74,11 +75,9 @@ final class PersonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePersonRequest $request, Person $person): RedirectResponse
+    public function update(UpdatePersonRequest $request, Person $person, UpdatePersonAction $action): RedirectResponse
     {
-        // Validate and update the person's details
-        $validatedData = $request->validated();
-        $person->update($validatedData);
+        $action->handle($person, $request->validated());
 
         // Redirect to the index page with a success message
         return to_route('people.index')->with('success', 'Person updated successfully.');
@@ -87,10 +86,10 @@ final class PersonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Person $person): RedirectResponse
+    public function destroy(Person $person, DeletePersonAction $action): RedirectResponse
     {
-        // Delete the person from the database
-        $person->delete();
+        // Delete the person using the action
+        $action->handle($person);
 
         // Redirect to the index page with a success message
         return to_route('people.index')->with('success', 'Person deleted successfully.');
