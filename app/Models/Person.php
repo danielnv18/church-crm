@@ -19,6 +19,19 @@ final class Person extends Model
 
     use SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'gender',
+        'civil_status',
+        'dob',
+    ];
+
     public function contactInformation(): HasOne
     {
         return $this->hasOne(ContactInformation::class);

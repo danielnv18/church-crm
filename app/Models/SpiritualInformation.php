@@ -13,6 +13,19 @@ final class SpiritualInformation extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'membership_at',
+        'baptized_at',
+        'saved_at',
+        'testimony',
+        'person_id',
+    ];
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
