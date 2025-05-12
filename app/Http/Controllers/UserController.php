@@ -23,7 +23,7 @@ final class UserController extends Controller
     public function index(): Response
     {
         // Fetch all users from the database
-        $users = User::all();
+        $users = User::with('roles:id,name')->get();
 
         // Return a view with the users data
         return Inertia::render('users/index', [

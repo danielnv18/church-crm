@@ -5,7 +5,11 @@ import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Users',
+        href: route('users.index'),
+    },
+    {
+        title: 'Create User',
         href: '/dashboard',
     },
 ];
