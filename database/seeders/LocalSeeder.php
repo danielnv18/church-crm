@@ -21,8 +21,23 @@ final class LocalSeeder extends Seeder
     private function seedUser(): void
     {
         $users = [
-            ['name' => 'Admin User', 'email' => 'admin@church.com', 'role' => RoleEnum::Admin],
-            ['name' => 'Pastor User', 'email' => 'pastor@church.com', 'role' => RoleEnum::Pastor],
+            [
+                'name' => 'Admin User',
+                'email' => 'admin@church.com',
+                'roles' => [RoleEnum::Admin],
+            ],
+            [
+                'name' => 'Pastor User',
+                'email' => 'pastor@church.com',
+                'roles' => [RoleEnum::Pastor],
+            ],
+            [
+                // There is no such thing as a "super pastor" in the bible,
+                // but this is just for testing users with both roles
+                'name' => 'Super Pastor',
+                'email' => 'super@church.com',
+                'roles' => [RoleEnum::Admin, RoleEnum::Pastor],
+            ],
         ];
 
         foreach ($users as $user) {
@@ -31,7 +46,7 @@ final class LocalSeeder extends Seeder
                 'email' => $user['email'],
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
-            ])->assignRole($user['role']);
+            ])->assignRole($user['roles']);
         }
     }
 }
