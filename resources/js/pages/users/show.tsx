@@ -10,12 +10,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function PersonShow() {
+export default function UserShow() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Heading title="Person" />
+                <Heading title="Show User" />
             </div>
         </AppLayout>
     );
