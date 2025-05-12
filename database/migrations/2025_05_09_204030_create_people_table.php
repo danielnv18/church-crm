@@ -22,8 +22,6 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->enum('gender', array_column(Gender::cases(), 'value'));
             $table->enum('civil_status', array_column(CivilStatus::cases(), 'value'))->nullable();
-            $table->unsignedBigInteger('spouse_id')->nullable();
-            $table->foreign('spouse_id')->references('id')->on('people')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

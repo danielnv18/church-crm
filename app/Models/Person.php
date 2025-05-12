@@ -42,11 +42,6 @@ final class Person extends Model
         return $this->hasOne(SpiritualInformation::class);
     }
 
-    public function spouse(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'spouse_id');
-    }
-
     /**
      * Get the attributes that should be cast.
      *
