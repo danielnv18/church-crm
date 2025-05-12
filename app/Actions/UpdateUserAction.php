@@ -14,8 +14,7 @@ final class UpdateUserAction
      */
     public function handle(User $user, array $data): User
     {
-        return DB::transaction(function () use ($user, $data): User {
-
+        return DB::transaction(function () use ($user): User {
 
             return $user;
         });

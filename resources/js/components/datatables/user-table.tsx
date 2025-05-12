@@ -1,44 +1,44 @@
-import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Eye, Pencil, Trash2 } from "lucide-react"
-import { DeleteConfirmDialog } from "@/components/delete-confirm-dialog"
+import { DeleteConfirmDialog } from '@/components/delete-confirm-dialog';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { User } from '@/types';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
 interface UserTableProps {
-    users: User[]
+    users: User[];
 }
 
-export function UserDatatable({users}: UserTableProps) {
-    const [userToDelete, setUserToDelete] = useState<number | null>(null)
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+export function UserDatatable({ users }: UserTableProps) {
+    const [userToDelete, setUserToDelete] = useState<number | null>(null);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const handleView = (userId: number) => {
-        console.log('handleView', userId)
-    }
+        console.log('handleView', userId);
+    };
 
     const handleUpdate = (userId: number) => {
-        console.log('handleUpdate', userId)
-    }
+        console.log('handleUpdate', userId);
+    };
 
     const handleDeleteClick = (userId: number) => {
-        setUserToDelete(userId)
-        setIsDeleteDialogOpen(true)
-    }
+        setUserToDelete(userId);
+        setIsDeleteDialogOpen(true);
+    };
 
     const confirmDelete = () => {
         if (userToDelete) {
             // setUsers(users.filter((user) => user.id !== userToDelete))
-            setIsDeleteDialogOpen(false)
-            setUserToDelete(null)
+            setIsDeleteDialogOpen(false);
+            setUserToDelete(null);
         }
-    }
+    };
 
     const cancelDelete = () => {
-        setIsDeleteDialogOpen(false)
-        setUserToDelete(null)
-    }
+        setIsDeleteDialogOpen(false);
+        setUserToDelete(null);
+    };
 
     return (
         <>
@@ -58,9 +58,7 @@ export function UserDatatable({users}: UserTableProps) {
                             <TableRow key={user.id}>
                                 <TableCell className="font-medium">{user.name}</TableCell>
                                 <TableCell>{user.email}</TableCell>
-                                <TableCell>
-                                    {user.email_verified_at!== null ? 'Active' : 'Inactive'}
-                                </TableCell>
+                                <TableCell>{user.email_verified_at !== null ? 'Active' : 'Inactive'}</TableCell>
                                 <TableCell>
                                     <div className="flex flex-wrap gap-1">
                                         {user.roles.map((role) => (
@@ -80,12 +78,7 @@ export function UserDatatable({users}: UserTableProps) {
                                         >
                                             <Eye className="h-4 w-4" />
                                         </Button>
-                                        <Button
-                                            variant="outline"
-                                            size="icon"
-                                            onClick={() => handleUpdate(user.id)}
-                                            aria-label={`Edit ${user.name}`}
-                                        >
+                                        <Button variant="outline" size="icon" onClick={() => handleUpdate(user.id)} aria-label={`Edit ${user.name}`}>
                                             <Pencil className="h-4 w-4" />
                                         </Button>
                                         <Button
@@ -93,7 +86,7 @@ export function UserDatatable({users}: UserTableProps) {
                                             size="icon"
                                             onClick={() => handleDeleteClick(user.id)}
                                             aria-label={`Delete ${user.name}`}
-                                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                            className="text-red-500 hover:bg-red-50 hover:text-red-700"
                                         >
                                             <Trash2 className="h-4 w-4" />
                                         </Button>
@@ -113,5 +106,5 @@ export function UserDatatable({users}: UserTableProps) {
                 description="Are you sure you want to delete this user? This action cannot be undone."
             />
         </>
-    )
+    );
 }

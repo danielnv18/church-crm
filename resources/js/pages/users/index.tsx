@@ -1,11 +1,10 @@
+import { UserDatatable } from '@/components/datatables/user-table';
 import Heading from '@/components/heading';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Button } from "@/components/ui/button"
-import { PlusCircle } from "lucide-react"
-import { UserDatatable } from '@/components/datatables/user-table';
-
+import { PlusCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,10 +14,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface UserIndexProps {
-    users: User[]
+    users: User[];
 }
 
-export default function UserIndex({users}: UserIndexProps) {
+export default function UserIndex({ users }: UserIndexProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
