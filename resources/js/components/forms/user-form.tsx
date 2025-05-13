@@ -18,22 +18,26 @@ type RegisterForm = {
 
 interface UserFormProps {
     roles: Role[];
-    user: User;
+    user?: User;
     type: 'create' | 'update';
 }
 
-export default function UserForm({ roles, user }: UserFormProps) {
-    const { data, setData, put, processing, errors, reset } = useForm<Required<RegisterForm>>({
-        name: user.name,
-        email: user.email,
+export default function UserForm({ roles, user, type }: UserFormProps) {
+    const { data, setData, put, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+        name: user?.name || '',
+        email: user?.email || '',
         password: '',
         password_confirmation: '',
-        role_ids: user.roles.map((role) => role.id),
+        role_ids: user?.roles.map((role) => role.id) || [],
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('users.update', user.id), {
+        const action = type === 'create' ? post : put;
+        const routeName = type === 'create' ? 'users.store' : 'users.update';
+        const routeParams = type === 'update' ? user?.id : undefined;
+
+        action(route(routeName, routeParams), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -81,6 +85,7 @@ export default function UserForm({ roles, user }: UserFormProps) {
                             id="password"
                             type="password"
                             tabIndex={3}
+                            required={type === 'create'}
                             autoComplete="new-password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
@@ -96,6 +101,7 @@ export default function UserForm({ roles, user }: UserFormProps) {
                             id="password_confirmation"
                             type="password"
                             tabIndex={4}
+                            required={type === 'create'}
                             autoComplete="new-password"
                             value={data.password_confirmation}
                             onChange={(e) => setData('password_confirmation', e.target.value)}
@@ -135,7 +141,7 @@ export default function UserForm({ roles, user }: UserFormProps) {
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Update account
+                        {type === 'create'? 'Create': 'Update'} account
                     </Button>
                 </div>
             </form>
