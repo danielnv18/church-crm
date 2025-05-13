@@ -5,7 +5,8 @@
             "php",
             "filesystems",
             "favicon",
-            "js"
+            "js",
+            "debugbar"
         ],
         "paths": [
             "app",
