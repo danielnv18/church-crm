@@ -30,11 +30,8 @@ final class StoreUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'roles' => [
-                'required',
-                'array',
-                'exists:roles,name',
-            ],
+            'role_ids' => ['required', 'array'],
+            'role_ids.*' => 'required|exists:roles,id',
         ];
     }
 }

@@ -13,7 +13,7 @@ type RegisterForm = {
     email: string;
     password: string;
     password_confirmation: string;
-    roles: number[];
+    role_ids: number[];
 };
 
 interface CreateUserFormProps {
@@ -26,7 +26,7 @@ export default function CreateUserForm({ roles }: CreateUserFormProps) {
         email: '',
         password: '',
         password_confirmation: '',
-        roles: [],
+        role_ids: [],
     });
 
     const submit: FormEventHandler = (e) => {
@@ -111,14 +111,14 @@ export default function CreateUserForm({ roles }: CreateUserFormProps) {
                                     <Checkbox
                                         key={role.id}
                                         id={`role-${role.id}`}
-                                        checked={data.roles?.includes(role.id)}
+                                        checked={data.role_ids?.includes(role.id)}
                                         onCheckedChange={(checked) => {
                                             if (checked) {
-                                                setData('roles', [...data.roles, role.id]);
+                                                setData('role_ids', [...data.role_ids, role.id]);
                                             } else {
                                                 setData(
-                                                    'roles',
-                                                    data.roles.filter((r) => r !== role.id),
+                                                    'role_ids',
+                                                    data.role_ids.filter((r) => r !== role.id),
                                                 );
                                             }
                                         }}
@@ -127,7 +127,7 @@ export default function CreateUserForm({ roles }: CreateUserFormProps) {
                                 </Label>
                             </div>
                         ))}
-                        <InputError message={errors.password_confirmation} />
+                        <InputError message={errors.roles} />
                     </div>
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>

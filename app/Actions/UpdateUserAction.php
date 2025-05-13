@@ -16,6 +16,7 @@ final class UpdateUserAction
     {
         return DB::transaction(function () use ($user): User {
 
+            $user->syncRoles($data['role_ids']);
             return $user;
         });
     }

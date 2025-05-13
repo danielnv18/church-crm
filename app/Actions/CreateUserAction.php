@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 final class CreateUserAction
 {
@@ -23,7 +24,7 @@ final class CreateUserAction
                 'password' => Hash::make($data['password']),
             ]);
 
-            $user->assignRole($data['roles']);
+            $user->assignRole($data['role_ids']);
 
             $user->refresh();
 
