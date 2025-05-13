@@ -8,7 +8,7 @@ import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
-type RegisterForm = {
+type CreateForm = {
     name: string;
     email: string;
     password: string;
@@ -21,7 +21,7 @@ interface CreateUserFormProps {
 }
 
 export default function CreateUserForm({ roles }: CreateUserFormProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+    const { data, setData, post, processing, errors, reset } = useForm<Required<CreateForm>>({
         name: '',
         email: '',
         password: '',
@@ -104,30 +104,33 @@ export default function CreateUserForm({ roles }: CreateUserFormProps) {
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        {roles.map((role: Role) => (
-                            <div key={role.id} className="flex flex-row items-start space-y-0 space-x-3 rounded-md border p-3">
-                                <Label htmlFor={`role-${role.id}`} className="flex items-center gap-2">
-                                    <Checkbox
-                                        key={role.id}
-                                        id={`role-${role.id}`}
-                                        checked={data.role_ids?.includes(role.id)}
-                                        onCheckedChange={(checked) => {
-                                            if (checked) {
-                                                setData('role_ids', [...data.role_ids, role.id]);
-                                            } else {
-                                                setData(
-                                                    'role_ids',
-                                                    data.role_ids.filter((r) => r !== role.id),
-                                                );
-                                            }
-                                        }}
-                                    />
-                                    {role.name}
-                                </Label>
-                            </div>
-                        ))}
-                        <InputError message={errors.roles} />
+                    <div className="grid gap-2">
+                        <Label>Roles</Label>
+                        <div className="grid grid-cols-2 gap-2">
+                            {roles.map((role: Role) => (
+                                <div key={role.id} className="flex flex-row items-start space-y-0 space-x-3 rounded-md border p-3">
+                                    <Label htmlFor={`role-${role.id}`} className="flex items-center gap-2">
+                                        <Checkbox
+                                            key={role.id}
+                                            id={`role-${role.id}`}
+                                            checked={data.role_ids?.includes(role.id)}
+                                            onCheckedChange={(checked) => {
+                                                if (checked) {
+                                                    setData('role_ids', [...data.role_ids, role.id]);
+                                                } else {
+                                                    setData(
+                                                        'role_ids',
+                                                        data.role_ids.filter((r) => r !== role.id),
+                                                    );
+                                                }
+                                            }}
+                                        />
+                                        {role.name}
+                                    </Label>
+                                </div>
+                            ))}
+                        </div>
+                        <InputError message={errors.role_ids} />
                     </div>
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
