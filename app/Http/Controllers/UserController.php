@@ -60,6 +60,8 @@ final class UserController extends Controller
      */
     public function show(User $user): Response
     {
+        $user->load('roles:id,name');
+
         // Return a view with the user's details
         return Inertia::render('users/show', [
             'user' => $user,
