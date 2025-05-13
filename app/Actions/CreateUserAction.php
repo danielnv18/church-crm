@@ -6,6 +6,7 @@ namespace App\Actions;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 final class CreateUserAction
 {
@@ -16,15 +17,17 @@ final class CreateUserAction
     {
         return DB::transaction(function () use ($data): User {
             // Create the person with the general information
-            $generalData = [
-                'name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'gender' => $data['gender'],
-                'civil_status' => $data['civil_status'] ?? null,
-                'dob' => $data['dob'] ?? null,
-            ];
-            $user = User::create($generalData);
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
 
+            $user->assignRole($data['roles']);
+
+            $user->refresh();
+
+            return $user;
         });
     }
 }

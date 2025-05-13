@@ -1,4 +1,4 @@
-import { UserDatatable } from '@/components/datatables/user-table';
+import { UserDatatable } from '@/components/datatables/users-datatable';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
