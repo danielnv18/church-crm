@@ -20,7 +20,7 @@ interface UserIndexProps {
 export default function UserIndex({ users }: UserIndexProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="User Management" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title="User Management" />
                 <Button asChild>

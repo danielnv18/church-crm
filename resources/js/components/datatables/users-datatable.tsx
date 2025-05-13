@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { User } from '@/types';
+import { router } from '@inertiajs/react';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -15,11 +16,11 @@ export function UserDatatable({ users }: UserTableProps) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const handleView = (userId: number) => {
-        console.log('handleView', userId);
+        router.visit(route('users.show', userId));
     };
 
     const handleUpdate = (userId: number) => {
-        console.log('handleUpdate', userId);
+        router.visit(route('users.edit', userId));
     };
 
     const handleDeleteClick = (userId: number) => {

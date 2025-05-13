@@ -7,7 +7,6 @@ namespace App\Actions;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 final class CreateUserAction
 {

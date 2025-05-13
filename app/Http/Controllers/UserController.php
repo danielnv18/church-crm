@@ -75,7 +75,7 @@ final class UserController extends Controller
 
         // Return a view for editing the user's details
         return Inertia::render('users/edit', [
-            'user' => $user,
+            'user' => $user->load('roles:id,name'),
             'roles' => $roles,
         ]);
     }
