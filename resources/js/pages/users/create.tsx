@@ -1,8 +1,8 @@
+import UserForm from '@/components/forms/user-form';
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, Role } from '@/types';
 import { Head } from '@inertiajs/react';
-import UserForm from '@/components/forms/user-form';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +25,7 @@ export default function UserCreate({ roles }: UserCreateProps) {
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title="Create User" />
-                <UserForm roles={roles} type='create' />
+                <UserForm roles={roles} type="create" />
             </div>
         </AppLayout>
     );

@@ -141,7 +141,7 @@ export default function UserForm({ roles, user, type }: UserFormProps) {
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        {type === 'create'? 'Create': 'Update'} account
+                        {type === 'create' ? 'Create' : 'Update'} account
                     </Button>
                 </div>
             </form>

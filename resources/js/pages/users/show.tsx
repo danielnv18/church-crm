@@ -1,12 +1,11 @@
 import Heading from '@/components/heading';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, User } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import {  Pencil } from 'lucide-react';
-import { Badge } from "@/components/ui/badge"
-import { Button } from '@/components/ui/button';
-
+import { Pencil } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,11 +19,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface UserShowProps {
-    user: User
+    user: User;
 }
 
-
-export default function UserShow({user}: UserShowProps) {
+export default function UserShow({ user }: UserShowProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -44,24 +42,22 @@ export default function UserShow({user}: UserShowProps) {
                         </Button>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Full Name</h3>
+                                <h3 className="text-muted-foreground text-sm font-medium">Full Name</h3>
                                 <p className="text-lg">{user.name}</p>
                             </div>
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Email</h3>
+                                <h3 className="text-muted-foreground text-sm font-medium">Email</h3>
                                 <p className="text-lg">{user.email}</p>
                             </div>
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Status</h3>
-                                <Badge variant="outline" >
-                                    {user.email_verified_at ? "Verified" : "Unverified"}
-                                </Badge>
+                                <h3 className="text-muted-foreground text-sm font-medium">Status</h3>
+                                <Badge variant="outline">{user.email_verified_at ? 'Verified' : 'Unverified'}</Badge>
                             </div>
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Roles</h3>
-                                <div className="flex flex-wrap gap-2 mt-1">
+                                <h3 className="text-muted-foreground text-sm font-medium">Roles</h3>
+                                <div className="mt-1 flex flex-wrap gap-2">
                                     {user.roles.map((role) => (
                                         <Badge key={role.id} variant="secondary">
                                             {role.name}
@@ -70,17 +66,17 @@ export default function UserShow({user}: UserShowProps) {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Created At</h3>
+                                <h3 className="text-muted-foreground text-sm font-medium">Created At</h3>
                                 <p className="text-lg">{user.created_at}</p>
                             </div>
                             <div>
-                                <h3 className="text-sm font-medium text-muted-foreground">Last Login</h3>
-                                <p className="text-lg">{user.updated_at || "Never"}</p>
+                                <h3 className="text-muted-foreground text-sm font-medium">Last Login</h3>
+                                <p className="text-lg">{user.updated_at || 'Never'}</p>
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <p className="text-sm text-muted-foreground">User ID: {user.id}</p>
+                        <p className="text-muted-foreground text-sm">User ID: {user.id}</p>
                     </CardFooter>
                 </Card>
             </div>
