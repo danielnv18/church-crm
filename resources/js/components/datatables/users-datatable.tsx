@@ -30,9 +30,15 @@ export function UserDatatable({ users }: UserTableProps) {
 
     const confirmDelete = () => {
         if (userToDelete) {
-            // setUsers(users.filter((user) => user.id !== userToDelete))
             setIsDeleteDialogOpen(false);
             setUserToDelete(null);
+            router.delete(route('users.destroy', userToDelete), {
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => {
+                    // Optionally, you can show a success message or perform any other action
+                },
+            });
         }
     };
 
