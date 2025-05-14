@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Actions\CreateUserAction;
 use App\Actions\DeleteUserAction;
 use App\Actions\UpdateUserAction;
-use App\Enums\ActionEnum;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
