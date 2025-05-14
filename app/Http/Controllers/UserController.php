@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Actions\CreateUserAction;
 use App\Actions\DeleteUserAction;
 use App\Actions\UpdateUserAction;
+use App\Enums\ActionEnum;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -22,6 +23,11 @@ final class UserController extends Controller
      */
     public function index(): Response
     {
+        // Check if the user has the necessary permissions
+        if (! auth()->user()->can(ActionEnum::ViewAny->value.' user')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         // Fetch all users from the database
         $users = User::with('roles:id,name')->get();
 
@@ -36,6 +42,11 @@ final class UserController extends Controller
      */
     public function create(): Response
     {
+        // Check if the user has the necessary permissions
+        if (! auth()->user()->can(ActionEnum::Create->value.' user')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $roles = Role::all();
 
         // Return a view for creating a new user
@@ -49,7 +60,7 @@ final class UserController extends Controller
      */
     public function store(StoreUserRequest $request, CreateUserAction $action): RedirectResponse
     {
-        $user = $action->handle($request->validated());
+        $action->handle($request->validated());
 
         // Redirect to the index page with a success message
         return to_route(('users.index'))->with('success', 'User created successfully.');

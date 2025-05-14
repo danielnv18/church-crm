@@ -3,6 +3,7 @@ import type { Config } from 'ziggy-js';
 
 export interface Auth {
     user: User;
+    permissions: Permission[];
 }
 
 export interface BreadcrumbItem {
@@ -24,7 +25,6 @@ export interface NavItem {
 
 export interface SharedData {
     name: string;
-    quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
@@ -37,11 +37,7 @@ export interface Role {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-export interface Permission {
-    id: number;
-    name: string;
-    [key: string]: unknown; // This allows for additional properties...
-}
+type Permission = string;
 
 export interface User {
     id: number;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Enums\ActionEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
@@ -14,8 +15,8 @@ final class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // TODO: add authorization logic here
-        return true; // Allow all users to make this request for now
+        // Check if the user has the necessary permissions
+        return auth()->user()?->can(ActionEnum::Create->value.' user') ?? false;
     }
 
     /**

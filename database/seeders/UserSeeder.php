@@ -61,8 +61,8 @@ final class UserSeeder extends Seeder
     {
         // Only admins can manage users model
         $adminRole = Role::findByName(RoleEnum::Admin->value);
-        foreach (ActionEnum::cases() as $action) {
-            $permission = "{$action->value} user";
+        foreach (ActionEnum::userPermissions() as $action) {
+            $permission = "{$action} user";
             if (Permission::where('name', $permission)->exists()) {
                 $adminRole->givePermissionTo($permission);
             }
@@ -70,8 +70,8 @@ final class UserSeeder extends Seeder
 
         // Admin and Pastors can manage person model
         $pastorRole = Role::findByName(RoleEnum::Pastor->value);
-        foreach (ActionEnum::cases() as $action) {
-            $permission = "{$action->value} person";
+        foreach (ActionEnum::userPermissions() as $action) {
+            $permission = "{$action} person";
             if (Permission::where('name', $permission)->exists()) {
                 $adminRole->givePermissionTo($permission);
                 $pastorRole->givePermissionTo($permission);
