@@ -161,6 +161,11 @@ Configuration:
 - 4 spaces for indentation (except YAML files which use 2 spaces)
 - 150 character line length
 
+### Styling & UI
+- Use Shadcn for UI components
+- Use Tailwind CSS for styling
+- Keep UI minimal
+
 ### Static Analysis
 - PHPStan (via Larastan) is used for static analysis
 - Type coverage is enforced at 100%
@@ -213,4 +218,3 @@ public function store(CreateTodoRequest $request, CreateTodoAction $action)
 - Stick to existing structure—no new folders.
 - Avoid DB::; use Model::query() only.
 - No dependency changes without approval.
-- 
