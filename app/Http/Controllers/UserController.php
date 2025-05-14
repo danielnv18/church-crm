@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 final class UserController extends Controller
 {
@@ -22,6 +23,11 @@ final class UserController extends Controller
      */
     public function index(): Response
     {
+        // check the viewAny method in the UserPolicy
+        if (! auth()->user()->can('viewAny', User::class)) {
+            abort(ResponseCode::HTTP_FORBIDDEN, 'Unauthorized action.');
+        }
+
         // Fetch all users from the database
         $users = User::with('roles:id,name')->get();
 
@@ -36,6 +42,11 @@ final class UserController extends Controller
      */
     public function create(): Response
     {
+        // check the create method in the UserPolicy
+        if (! auth()->user()->can('create', User::class)) {
+            abort(ResponseCode::HTTP_FORBIDDEN, 'Unauthorized action.');
+        }
+
         $roles = Role::all();
 
         // Return a view for creating a new user
@@ -60,6 +71,11 @@ final class UserController extends Controller
      */
     public function show(User $user): Response
     {
+        // check the view method in the UserPolicy
+        if (! auth()->user()->can('view', $user)) {
+            abort(ResponseCode::HTTP_FORBIDDEN, 'Unauthorized action.');
+        }
+
         $user->load('roles:id,name');
 
         // Return a view with the user's details
@@ -73,6 +89,11 @@ final class UserController extends Controller
      */
     public function edit(User $user): Response
     {
+        // check the update method in the UserPolicy
+        if (! auth()->user()->can('update', $user)) {
+            abort(ResponseCode::HTTP_FORBIDDEN, 'Unauthorized action.');
+        }
+
         $roles = Role::all();
 
         // Return a view for editing the user's details
@@ -98,6 +119,11 @@ final class UserController extends Controller
      */
     public function destroy(User $user, DeleteUserAction $action): RedirectResponse
     {
+        // check the delete method in the UserPolicy
+        if (! auth()->user()->can('delete', $user)) {
+            abort(ResponseCode::HTTP_FORBIDDEN, 'Unauthorized action.');
+        }
+
         $action->handle($user);
 
         // Redirect to the index page with a success message
