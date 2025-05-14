@@ -23,11 +23,6 @@ final class UserController extends Controller
      */
     public function index(): Response
     {
-        // Check if the user has the necessary permissions
-        if (! auth()->user()->can(ActionEnum::ViewAny->value.' user')) {
-            abort(403, 'Unauthorized action.');
-        }
-
         // Fetch all users from the database
         $users = User::with('roles:id,name')->get();
 
@@ -42,11 +37,6 @@ final class UserController extends Controller
      */
     public function create(): Response
     {
-        // Check if the user has the necessary permissions
-        if (! auth()->user()->can(ActionEnum::Create->value.' user')) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $roles = Role::all();
 
         // Return a view for creating a new user
