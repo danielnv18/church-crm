@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Enums\ActionEnum;
+use App\Enums\PermissionModelAction;
 use App\Enums\RoleEnum;
 use App\Models\Person;
 use App\Models\User;
@@ -47,7 +47,7 @@ final class UserSeeder extends Seeder
 
             // Generate permissions for each action and model
             $permissions = [];
-            foreach (ActionEnum::cases() as $action) {
+            foreach (PermissionModelAction::cases() as $action) {
                 $permissions[] = "{$action->value} {$modelName}";
             }
 
@@ -61,7 +61,7 @@ final class UserSeeder extends Seeder
     {
         // Only admins can manage users model
         $adminRole = Role::findByName(RoleEnum::Admin->value);
-        foreach (ActionEnum::userPermissions() as $action) {
+        foreach (PermissionModelAction::userPermissions() as $action) {
             $permission = "{$action} user";
             if (Permission::where('name', $permission)->exists()) {
                 $adminRole->givePermissionTo($permission);
@@ -70,7 +70,7 @@ final class UserSeeder extends Seeder
 
         // Admin and Pastors can manage person model
         $pastorRole = Role::findByName(RoleEnum::Pastor->value);
-        foreach (ActionEnum::userPermissions() as $action) {
+        foreach (PermissionModelAction::userPermissions() as $action) {
             $permission = "{$action} person";
             if (Permission::where('name', $permission)->exists()) {
                 $adminRole->givePermissionTo($permission);
@@ -85,7 +85,7 @@ final class UserSeeder extends Seeder
         $adminRole = Role::findByName(RoleEnum::Admin->value);
         foreach ($this->models as $model) {
             $modelName = Str::snake(class_basename($model));
-            foreach (ActionEnum::adminPermissions() as $action) {
+            foreach (PermissionModelAction::adminPermissions() as $action) {
                 if (in_array($action, ['restore', 'force delete'])) {
                     $permission = "{$action} {$modelName}";
                     $adminRole->givePermissionTo($permission);

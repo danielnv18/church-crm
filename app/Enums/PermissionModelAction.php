@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum ActionEnum: string
+enum PermissionModelAction: string
 {
     case ViewAny = 'view any';
     case View = 'view';

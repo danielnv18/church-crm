@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Enums\ActionEnum;
+use App\Enums\PermissionModelAction;
 use App\Models\User;
 
 final class UserPolicy
@@ -14,7 +14,7 @@ final class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can(ActionEnum::ViewAny->value.' user');
+        return $user->can(PermissionModelAction::ViewAny->value.' user');
     }
 
     /**
@@ -28,7 +28,7 @@ final class UserPolicy
         }
 
         // Check if the user has the 'view any user' permission
-        return $user->can(ActionEnum::ViewAny->value.' user');
+        return $user->can(PermissionModelAction::ViewAny->value.' user');
     }
 
     /**
@@ -36,7 +36,7 @@ final class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can(ActionEnum::Create->value.' user');
+        return $user->can(PermissionModelAction::Create->value.' user');
     }
 
     /**
@@ -50,7 +50,7 @@ final class UserPolicy
         }
 
         // Check if the user has the 'update user' permission
-        return $user->can(ActionEnum::Update->value.' user');
+        return $user->can(PermissionModelAction::Update->value.' user');
     }
 
     /**
@@ -64,7 +64,7 @@ final class UserPolicy
         }
 
         // Check if the user has the 'delete user' permission
-        return $user->can(ActionEnum::Delete->value.' user');
+        return $user->can(PermissionModelAction::Delete->value.' user');
     }
 
     /**
@@ -72,7 +72,7 @@ final class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return $user->can(ActionEnum::Restore->value.' user');
+        return $user->can(PermissionModelAction::Restore->value.' user');
     }
 
     /**
@@ -80,6 +80,6 @@ final class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->can(ActionEnum::ForceDelete->value.' user');
+        return $user->can(PermissionModelAction::ForceDelete->value.' user');
     }
 }
