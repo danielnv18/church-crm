@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
@@ -17,7 +16,7 @@ final class UpdateUserRequest extends FormRequest
     public function authorize(): bool
     {
         // Check if the user has the necessary permissions
-        return auth()->user()?->can('update', User::class) ?? false;
+        return auth()->user()?->can('update', $this->route('user')) ?? false;
     }
 
     /**

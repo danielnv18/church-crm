@@ -216,5 +216,5 @@ public function store(CreateTodoRequest $request, CreateTodoAction $action)
 - Use Enums for type-safe constants
 - Delete .gitkeep when adding a file.
 - Stick to existing structure—no new folders.
-- Avoid DB::; use Model::query() only.
+- Avoid `DB::`; use `Model::query()` only.
 - No dependency changes without approval.
