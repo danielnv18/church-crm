@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http;
 
 use App\Enums\PermissionModelAction;
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -16,7 +17,7 @@ uses(RefreshDatabase::class);
 // Index method tests
 test('index method returns users list for authorized user', function () {
     // Create a role with the necessary permission
-    $role = Role::create(['name' => 'admin']);
+    $role = Role::create(['name' => RoleEnum::Admin->value]);
     $permission = Permission::create(['name' => PermissionModelAction::ViewAny->value.' user']);
     $role->givePermissionTo($permission);
 

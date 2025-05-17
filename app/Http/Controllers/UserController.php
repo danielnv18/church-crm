@@ -23,7 +23,7 @@ final class UserController extends Controller
      */
     public function index(): Response
     {
-        Gate::authorize('create', User::class);
+        Gate::authorize('viewAny', User::class);
 
         // Fetch all users from the database
         $users = User::with('roles:id,name')->get();
