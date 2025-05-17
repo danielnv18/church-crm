@@ -11,6 +11,7 @@ use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Models\Person;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,6 +22,8 @@ final class PersonController extends Controller
      */
     public function index(): Response
     {
+        Gate::authorize('viewAny', Person::class);
+
         // Fetch all persons from the database
         $people = Person::all();
 
@@ -35,6 +38,8 @@ final class PersonController extends Controller
      */
     public function create(): Response
     {
+        Gate::authorize('create', Person::class);
+
         // Return a view for creating a new person
         return Inertia::render('people/create');
     }
@@ -44,6 +49,8 @@ final class PersonController extends Controller
      */
     public function store(StorePersonRequest $request, CreatePersonAction $action): RedirectResponse
     {
+        Gate::authorize('create', Person::class);
+
         $person = $action->handle($request->validated());
 
         // Redirect to the index page with a success message
@@ -55,6 +62,8 @@ final class PersonController extends Controller
      */
     public function show(Person $person): Response
     {
+        Gate::authorize('view', $person);
+
         // Return a view with the person's details
         return Inertia::render('people/show', [
             'person' => $person,
@@ -66,6 +75,8 @@ final class PersonController extends Controller
      */
     public function edit(Person $person): Response
     {
+        Gate::authorize('update', $person);
+
         // Return a view for editing the person's details
         return Inertia::render('people/edit', [
             'person' => $person,
@@ -77,6 +88,8 @@ final class PersonController extends Controller
      */
     public function update(UpdatePersonRequest $request, Person $person, UpdatePersonAction $action): RedirectResponse
     {
+        Gate::authorize('update', $person);
+
         $action->handle($person, $request->validated());
 
         // Redirect to the index page with a success message
@@ -88,6 +101,8 @@ final class PersonController extends Controller
      */
     public function destroy(Person $person, DeletePersonAction $action): RedirectResponse
     {
+        Gate::authorize('delete', $person);
+
         // Delete the person using the action
         $action->handle($person);
 
