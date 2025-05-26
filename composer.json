@@ -29,6 +29,7 @@
         "pestphp/pest": "^3.8.2",
         "pestphp/pest-plugin-laravel": "^3.2",
         "pestphp/pest-plugin-type-coverage": "^3.5.1",
+        "phpstan/phpstan": "^2.1",
         "rector/rector": "^2.0.16"
     },
     "autoload": {
@@ -82,7 +83,7 @@
             "npm run format:check"
         ],
         "test:unit": "pest --parallel --coverage --exactly=100.0",
-        "test:types": "phpstan",
+        "test:types": "phpstan --configuration=phpstan.neon",
         "test:refactor": "rector --dry-run",
         "test": [
             "@php artisan config:clear --ansi",
