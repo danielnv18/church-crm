@@ -43,7 +43,7 @@ final class Person extends Model
     ];
 
     /**
-     * @return HasOne<ContactInformation, Person>
+     * @return HasOne<ContactInformation, $this>
      */
     public function contactInformation(): HasOne
     {
@@ -51,7 +51,7 @@ final class Person extends Model
     }
 
     /**
-     * @return HasOne<SpiritualInformation, Person>
+     * @return HasOne<SpiritualInformation, $this>
      */
     public function spiritualInformation(): HasOne
     {

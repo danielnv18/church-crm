@@ -32,7 +32,7 @@ final class ContactInformation extends Model
     ];
 
     /**
-     * @return BelongsTo<Person, ContactInformation>
+     * @return BelongsTo<Person, $this>
      */
     public function person(): BelongsTo
     {
