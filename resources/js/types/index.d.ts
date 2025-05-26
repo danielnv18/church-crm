@@ -50,3 +50,17 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export type Gender = 'male' | 'female';
+
+export type CivilStatus = 'single' | 'married' | 'divorced' | 'widowed';
+
+export interface Person {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    dob: string;
+    gender: Gender;
+    civil_status: CivilStatus;
+}

@@ -24,10 +24,13 @@ final class PersonController extends Controller
     {
         Gate::authorize('viewAny', Person::class);
 
-        // Fetch all persons from the database
-        $people = Person::all();
+        // Fetch all people from the database
+        $people = Person::query()
+            ->with(['contactInformation', 'spiritualInformation'])
+            ->orderBy('first_name', 'desc')
+            ->get();
 
-        // Return a view with the persons data
+        // Return a view with the people data
         return Inertia::render('people/index', [
             'people' => $people,
         ]);
