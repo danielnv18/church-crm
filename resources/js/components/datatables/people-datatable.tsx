@@ -56,7 +56,6 @@ export function PeopleDatatable({ people }: PeopleTableProps) {
                             <TableHead>Name</TableHead>
                             <TableHead>Email</TableHead>
                             <TableHead>Marital</TableHead>
-                            <TableHead>Roles</TableHead>
                             <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -67,34 +66,25 @@ export function PeopleDatatable({ people }: PeopleTableProps) {
                                     {person.first_name} {person.last_name}
                                 </TableCell>
                                 <TableCell>{person.email}</TableCell>
-                                <TableCell>{user.email_verified_at !== null ? 'Active' : 'Inactive'}</TableCell>
-                                <TableCell>
-                                    <div className="flex flex-wrap gap-1">
-                                        {user.roles.map((role) => (
-                                            <Badge key={role.id} variant="secondary">
-                                                {role.name}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </TableCell>
+                                <TableCell>{person.civil_status}</TableCell>
                                 <TableCell className="text-right">
                                     <div className="flex justify-end gap-2">
                                         <Button
                                             variant="outline"
                                             size="icon"
-                                            onClick={() => handleView(user.id)}
-                                            aria-label={`View details for ${user.name}`}
+                                            onClick={() => handleView(person.id)}
+                                            aria-label={`View details for ${person.first_name} ${person.last_name}`}
                                         >
                                             <Eye className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="outline" size="icon" onClick={() => handleUpdate(user.id)} aria-label={`Edit ${user.name}`}>
+                                        <Button variant="outline" size="icon" onClick={() => handleUpdate(person.id)} aria-label={`Edit ${person.first_name} ${person.last_name}`}>
                                             <Pencil className="h-4 w-4" />
                                         </Button>
                                         <Button
                                             variant="outline"
                                             size="icon"
-                                            onClick={() => handleDeleteClick(user.id)}
-                                            aria-label={`Delete ${user.name}`}
+                                            onClick={() => handleDeleteClick(person.id)}
+                                            aria-label={`Delete ${person.first_name} ${person.last_name}`}
                                             className="text-red-500 hover:bg-red-50 hover:text-red-700"
                                         >
                                             <Trash2 className="h-4 w-4" />
