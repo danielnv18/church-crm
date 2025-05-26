@@ -54,7 +54,7 @@ final class PersonController extends Controller
     {
         Gate::authorize('create', Person::class);
 
-        $person = $action->handle($request->validated());
+        $action->handle($request->validated());
 
         // Redirect to the index page with a success message
         return to_route(('people.index'))->with('success', 'Person created successfully.');

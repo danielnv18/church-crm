@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('people', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table): void {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('spiritual_information', function (Blueprint $table) {
+        Schema::create('spiritual_information', function (Blueprint $table): void {
             $table->unsignedBigInteger('person_id')->nullable()->after('id');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
 
@@ -37,7 +37,7 @@ return new class extends Migration
         });
 
         // Contact information table
-        Schema::create('contact_information', function (Blueprint $table) {
+        Schema::create('contact_information', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');

@@ -37,7 +37,7 @@ final class PersonFactory extends Factory
      */
     public function configure(): static
     {
-        return $this->afterCreating(function (Person $person) {
+        return $this->afterCreating(function (Person $person): void {
             SpiritualInformation::factory()->create(['person_id' => $person->id]);
             ContactInformation::factory()->create(['person_id' => $person->id]);
         });

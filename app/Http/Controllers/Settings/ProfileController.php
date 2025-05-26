@@ -55,6 +55,7 @@ final class ProfileController extends Controller
 
         Auth::logout();
 
+        /** @phpstan-ignore-next-line */
         $user->delete();
 
         $request->session()->invalidate();
