@@ -30,9 +30,31 @@ test('profile information can be updated', function () {
 
     $user->refresh();
 
-    expect($user->name)->toBe('Test User');
-    expect($user->email)->toBe('test@example.com');
-    expect($user->email_verified_at)->toBeNull();
+    expect($user->name)->toBe('Test User')
+        ->and($user->email)->toBe('test@example.com')
+        ->and($user->email_verified_at)->toBeNull();
+});
+
+test('profile information can be updated with same email', function () {
+    $user = User::factory()->create([
+        'email_verified_at' => now(),
+    ]);
+
+    $response = $this
+        ->actingAs($user)
+        ->patch('/settings/profile', [
+            'name' => 'Updated Name',
+            'email' => $user->email,
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect('/settings/profile');
+
+    $user->refresh();
+
+    expect($user->name)->toBe('Updated Name')
+        ->and($user->email_verified_at)->not->toBeNull();
 });
 
 test('email verification status is unchanged when the email address is unchanged', function () {
@@ -84,4 +106,14 @@ test('correct password must be provided to delete account', function () {
         ->assertRedirect('/settings/profile');
 
     expect($user->fresh())->not->toBeNull();
+});
+
+test('redirects to login if user is not authenticated', function () {
+    // Make a request to the profile delete endpoint without being authenticated
+    $response = $this->delete('/settings/profile', [
+        'password' => 'password',
+    ]);
+
+    // Should redirect to login
+    $response->assertRedirect('/login');
 });
