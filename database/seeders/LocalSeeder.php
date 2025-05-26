@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Enums\RoleEnum;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,7 @@ final class LocalSeeder extends Seeder
     public function run(): void
     {
         $this->seedUser();
+        $this->seedPeople();
     }
 
     private function seedUser(): void
@@ -48,5 +50,11 @@ final class LocalSeeder extends Seeder
                 'email_verified_at' => now(),
             ])->assignRole($user['roles']);
         }
+    }
+
+    private function seedPeople(): void
+    {
+        // Seed 15 persons
+        Person::factory(15)->create();
     }
 }
