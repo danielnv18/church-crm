@@ -13,6 +13,11 @@ final class ContactInformation extends Model
     /** @use HasFactory<\Database\Factories\ContactInformationFactory> */
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
     protected $fillable = [
         'person_id',
         'email',
@@ -26,6 +31,9 @@ final class ContactInformation extends Model
         'country',
     ];
 
+    /**
+     * @return BelongsTo<Person, ContactInformation>
+     */
     public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);

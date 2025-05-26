@@ -22,7 +22,7 @@ final class SpiritualInformation extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'membership_at',
@@ -33,16 +33,13 @@ final class SpiritualInformation extends Model
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'membership_at' => 'date',
-            'baptized_at' => 'date',
-            'saved_at' => 'date',
-        ];
-    }
+    protected $casts = [
+        'membership_at' => 'date',
+        'baptized_at' => 'date',
+        'saved_at' => 'date',
+    ];
 }

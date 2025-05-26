@@ -15,6 +15,9 @@ enum PermissionModelAction: string
     case ForceDelete = 'force delete';
 
     // Get only admin permissions
+    /**
+     * @return array<string>
+     */
     public static function adminPermissions(): array
     {
         return [
@@ -24,6 +27,9 @@ enum PermissionModelAction: string
     }
 
     // Get only user permissions
+    /**
+     * @return array<string>
+     */
     public static function userPermissions(): array
     {
         return [

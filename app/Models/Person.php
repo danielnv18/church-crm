@@ -21,7 +21,7 @@ final class Person extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'first_name',
@@ -31,27 +31,30 @@ final class Person extends Model
         'dob',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'dob' => 'date',
+        'gender' => Gender::class,
+        'civil_status' => CivilStatus::class,
+    ];
+
+    /**
+     * @return HasOne<ContactInformation, Person>
+     */
     public function contactInformation(): HasOne
     {
         return $this->hasOne(ContactInformation::class);
     }
 
+    /**
+     * @return HasOne<SpiritualInformation, Person>
+     */
     public function spiritualInformation(): HasOne
     {
         return $this->hasOne(SpiritualInformation::class);
-    }
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'dob' => 'date',
-            'gender' => Gender::class,
-            'civil_status' => CivilStatus::class,
-        ];
     }
 }

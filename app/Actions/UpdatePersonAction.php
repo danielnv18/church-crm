@@ -11,6 +11,8 @@ final class UpdatePersonAction
 {
     /**
      * Execute the action.
+     *
+     * @param  array<string, mixed>  $data
      */
     public function handle(Person $person, array $data): Person
     {
